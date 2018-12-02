@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="背景许多人都有记账的习惯。 我从学生时代就开始记账，记录自己的消费，以便做到心里有数。那时候用过挖财记账APP。因为那时候自己没有收入，记账也只是记录自己的消费支出，所以这种单式记账的记账APP和它的简单的报表也勉强堪用。参加工作之后，有了自己的收入来源，消费支出也复杂了许多，还购买了基金、股票等投资产品，还有贷款、信用卡等等。个人财务状况一下子复杂了很多，原来的单式记账越来越不能满足这些新生的需">
+<meta name="keywords" content="accounting,beancount">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用beancount记账">
+<meta property="og:url" content="http://yoursite.com/2018/12/02/用beancount记账/index.html">
+<meta property="og:site_name" content="JW&#39;s blog">
+<meta property="og:description" content="背景许多人都有记账的习惯。 我从学生时代就开始记账，记录自己的消费，以便做到心里有数。那时候用过挖财记账APP。因为那时候自己没有收入，记账也只是记录自己的消费支出，所以这种单式记账的记账APP和它的简单的报表也勉强堪用。参加工作之后，有了自己的收入来源，消费支出也复杂了许多，还购买了基金、股票等投资产品，还有贷款、信用卡等等。个人财务状况一下子复杂了很多，原来的单式记账越来越不能满足这些新生的需">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-02T09:29:50.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用beancount记账">
+<meta name="twitter:description" content="背景许多人都有记账的习惯。 我从学生时代就开始记账，记录自己的消费，以便做到心里有数。那时候用过挖财记账APP。因为那时候自己没有收入，记账也只是记录自己的消费支出，所以这种单式记账的记账APP和它的简单的报表也勉强堪用。参加工作之后，有了自己的收入来源，消费支出也复杂了许多，还购买了基金、股票等投资产品，还有贷款、信用卡等等。个人财务状况一下子复杂了很多，原来的单式记账越来越不能满足这些新生的需">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/02/用beancount记账/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>用beancount记账 | JW's blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JW's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">及时总结</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/用beancount记账/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JW">
+      <meta itemprop="description" content="计算机 数据挖掘 算法等">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JW's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用beancount记账
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-02 10:39:20 / Modified: 17:29:50" itemprop="dateCreated datePublished" datetime="2018-12-02T10:39:20+08:00">2018-12-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>许多人都有记账的习惯。</p>
+<p>我从学生时代就开始记账，记录自己的消费，以便做到心里有数。那时候用过挖财记账APP。因为那时候自己没有收入，记账也只是记录自己的消费支出，所以这种单式记账的记账APP和它的简单的报表也勉强堪用。参加工作之后，有了自己的收入来源，消费支出也复杂了许多，还购买了基金、股票等投资产品，还有贷款、信用卡等等。个人财务状况一下子复杂了很多，原来的单式记账越来越不能满足这些新生的需求，比如：</p>
+<ol>
+<li>我买的基金（或股票）是亏了还是赚了？如果是分多次买入，或分多次卖出，我的单次交易和总体盈亏情况如何？</li>
+<li>我现在总共有哪些资产？我现在的资产值多少钱？我现在各个账户里面各有多少余额？这里的资产可能包括固定资产（房子、车位）、有价证券（股票、债券等）、债务（信用卡、贷款等）、债权（借给别人的钱、押金等）等等。其实就是个人的资产负债表。</li>
+<li>我的收入由什么组成，投资收益和工资各占多少？我的消费构成是什么样的？</li>
+</ol>
+<p>因为不想对自己的财务状况一团浆糊，所以我尝试了不少方法。比如参考网上资料做了一些Excel模板记账，也坚持了一段时间。但还是太麻烦，而且报表都要自己做。后来接触了复式记账法，感觉这个可能才是问题的正确解法。</p>
+<p>关于复式记账法，网上有很多资料，我这里就不再赘述。一开始最吸引我的两点：</p>
+<ol>
+<li>能轻易处理帮别人代付、AA付款、一笔支出对应多种消费等涉及多个账户的交易，而单式记账法往往要拆成多笔来记</li>
+<li>可以很容易的将消费、收入细分成多个账目，而且对账很容易</li>
+</ol>
+<p>于是就想找一个支持复式记账的记账工具。一开始只找到一些用友、金蝶等面向企业的财务软件，但是试用了发现功能太过复杂，很多功能个人也用不到。后来找到了GnuCash，这个软件在很大程度上满足了我的需求：支持复式记账法，有报表功能，虽然比较简陋。这个软件我用了一年多下来，也发现了不少问题：软件有不少Bug，有时候会闪退；记账时对中文的支持不太好，账户自动提示不太好用；界面特别是报表界面太简陋。特别是最近两次升级之后，对中文的支持居然更烂了，这让我产生了想要换掉它的想法。就在这时，我遇到了beancount。</p>
+<h1 id="beancount-初探"><a href="#beancount-初探" class="headerlink" title="beancount 初探"></a>beancount 初探</h1><p>beancount是一个用纯文本记账的工具。</p>
+<p>可能初听起来有点不可思议，就用一个纯文本文件，不用数据库，记录自己的所有账户和资金进出，记录完了我怎么查看、检索、查看报表、对账呢？我当初遇到beancount的前辈、同为纯文本记账的ledger的时候，也是没怎么想就pass了：纯文本那不就是纯手工吗，那得多麻烦。</p>
+<p>但我显然低估了程序员们的创造力。当我看到<a href="https://fava.pythonanywhere.com/example-beancount-file/income_statement/" target="_blank" rel="noopener">fava的demo</a>的时候（fava是beancount的一个前端展示界面），这不就是我一直在找的记账和报表工具吗？</p>
+<p>在介绍beancount之前，可以先来了解一下它的作者。他是一个程序员，一个拥有CFA证书的程序员，虽然不是专业做会计的。他也用过GnuCash，对它的界面和Bug感到失望。所以他自己实现了这个记账的工具。项目从08年开始，到现在已经有十年了，一直还在维护。</p>
+<p>beancount不仅是一个记账工具，同时也是一门语言——一门记账专用的编程语言。通过不多的几个关键词，你就能够清楚地表达记账里面大部分的行为。beancount的语法比较严格（相比ledger），这是为了更利于及时发现记错的账目。beancount大部分是用python实现的，提供python接口支持扩展，比如可以实现另外的界面（例如fava）。</p>
+<h1 id="从GnuCash到beancount"><a href="#从GnuCash到beancount" class="headerlink" title="从GnuCash到beancount"></a>从GnuCash到beancount</h1><p>首先一步，对我而言，就是要把在GnuCash里面记录的那些账目导入到beancount。</p>
+<p>（这里也要顺便说一下使用开源软件的好处，GnuCash的代码和数据存储格式都是公开的，这样就可以很方便地写一些工具将其数据导出，转换成自己需要的格式。网上已有很多现成的工具，感谢无私的开发者们！）</p>
+<p>我首先搜到了一个<a href="https://github.com/henriquebastos/gnucash-to-beancount" target="_blank" rel="noopener">gnucash-to-beancount的工具</a>，但是在跑的时候总是出错。它依赖了一个叫piecash的项目，这是一个用python操纵GnuCash数据存储的工具。从它的文档中，我找到了<a href="https://piecash.readthedocs.io/en/master/doc/doc.html#the-piecash-command-line-interface" target="_blank" rel="noopener">将GnuCash数据转成ledger格式的命令</a>。ledger格式跟beancount算是同一类，都是用纯文本记账，语法不同。然后又找到了<a href="https://github.com/zacchiro/ledger2beancount/blob/master/docs/manual.md#installation" target="_blank" rel="noopener">ledger-to-beancount的工具</a>，一个用perl写的很完善的工具。</p>
+<p>转换之后又遇到一个问题，就是我在GnuCash里面很多账户命名用了中文，但是beancount只能用ASCII字符命名账户（准确地说是只能出现字母、数字以及减号，还有冒号）。这也难不倒我。我将GnuCash的数据拷贝了一份，并在GnuCash里面将所有账户重命名成ASCII字符的，再重新转换一遍。用bean-check一下，没有错误，几乎完美地将GnuCash的账目全部导入了beancount。</p>
+<p>关于beancount账户命名不支持中文字符，我觉得有利有弊，后面会细说。</p>
+<h1 id="beancount的使用"><a href="#beancount的使用" class="headerlink" title="beancount的使用"></a>beancount的使用</h1><p>具体怎么安装什么的我就不细讲了，参考文档里面都有。我只是讲一下我是怎么用beancount的。</p>
+<p>首先一定要安装fava，这对beancount绝对是一个如虎添翼般的增强。最初吸引我的就是fava那美观和专业的财务报表，可以直观地了解到自己的财务状况、资金进出等。</p>
+<p>怎么<strong>记</strong>账？虽然用什么文本编辑工具都可以编辑账本，但是如果没有一些账户智能提示什么的，纯手工录入也绝对是会累死人的。beancount有导入工具可以把银行账单等直接导入，参考文档里面也有介绍，但我暂时还没有用到。因为我的记账习惯不是每笔都事无巨细地记下来。为了减轻记账负担，我一般只记一些比较大笔的支出，小额的支出我要么合并到一笔记，要么直接记到一个调整账户下。而且我一般只在一个月的月初记一下上个月的账。网络支付、信用卡、网银、券商、基金等都有记录随时可查，所以一般在月初通通去查一遍记录一下。当然这样也有个问题，就是经常想不起来现金花在哪儿了，不过因为现金用得少，影响倒也不是很大。另外，在扫码支付的时候最好备注一下是花在什么上面，免得记账时想不起来。</p>
+<p>关于账本编辑工具，beancount的作者是一个Emacs用户，所以他有提供一个Emacs的插件，结合org-mode插件，在Emacs下用起来应该非常爽。我之前用过一段时间Emacs和org-mode，确实非常强大。但无奈学习成本太高，而且一段时间不用就会忘记那些快捷键和功能，所以后来放弃了。现在各个主流的文本编辑器，包括Vim、Sublime、Visual Studio Code等都有beancount插件支持，一般都支持语法高亮、账号自动提示等，这就大大提高了记账的效率。</p>
+<p>前面提到beancount账户命名不支持中文有利有弊，我觉得<strong>利</strong>就是可以提高记账的效率。因为就跟编程的自动提示一样，账户名自动提示可以根据你输入的几个字符快速定位到你需要的账户，而如果是中文账户名，不仅需要切换输入法，而且自动提示也没有这么好用。那么ASCII字符命名的账户名（不一定是英文，也可以是拼音）显示很不直观怎么办？我觉得这是fava可以增强的一个地方：在显示账户的时候，可以用另一个显示名来显示，账户名只是作为一个代号。但目前fava还没有这样的功能，也许我有空可以给它贡献一点代码，而且实现起来也不难。</p>
+<p>另外还要提到的是fava的记账功能其实也很好用，也支持账户名自动提示。将这个功能加以完善也是一个方向，可以尽量避免用编辑器记账了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>说了这么多，不知道beancount和fava的功能有没有吸引到你。总的来说，这不是一个能够轻易上手的、适合一般用户的记账工具。要想掌握并充分用好它，我觉得最好要具备几个条件：</p>
+<ol>
+<li>英文最好要好一点，虽然它的文档很详细，但都是英文的。而且还都放在Google Doc上面</li>
+<li>懂一些会计基本知识，比如会计恒等式、复式记账法、资产、负债、借和贷等基本概念，会有助于更好地组织自己的会计科目，和理解财务报表</li>
+</ol>
+<p>我觉得beancount最厉害的地方就是它的数据结构，还有账簿的解析器。这是它的核心。</p>
+<p>它还是一个比较Geek范的记账工具，要用到python和命令行，不是下载下来打开就能用的。要想使它拥有更广大的用户群，还需要一个更友好的用户界面。</p>
+<h2 id="beancount的不足"><a href="#beancount的不足" class="headerlink" title="beancount的不足"></a>beancount的不足</h2><p>当然在使用过程中，也有遇到过一些问题。首先就是账户命名不支持中文，通过查看项目的更新历史，好像有支持unicode的更新，但是目前还没有支持，项目作者好像也在一些回复中提到要支持unicode也不难（ledger就已经支持中文账户名），需要修改一下解析器。其次，还没有支持规划记账（scheduled）和分摊（amortization）等功能，因为有些时候有这些功能会更方便，更能减轻人的记账负担。GnuCash支持规划记账，就是如果你每个月或者每个星期等都要重复记某一笔账，你可以设定让它到时候自动帮你记录这笔账，免得自己到时候遗忘。</p>
+<p>后续我想单独再写一篇介绍怎么用beancount记录自己的投资和查看投资回报。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://wzyboy.im/post/1063.html" target="_blank" rel="noopener">Beancount —— 命令行复式簿记</a></li>
+<li><a href="https://yuchi.me/post/beancount-intro/" target="_blank" rel="noopener">beancount 简易入门指南</a></li>
+<li><a href="http://furius.ca/beancount/doc/index" target="_blank" rel="noopener">Beancount Documentation</a> （会跳转到Google Docs）</li>
+<li><a href="https://beancount.github.io/fava/" target="_blank" rel="noopener">Fava 的文档</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/accounting/" rel="tag"># accounting</a>
+          
+            <a href="/tags/beancount/" rel="tag"># beancount</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/20/pyspark-notebook/" rel="next" title="如何搭建pyspark notebook环境">
+                <i class="fa fa-chevron-left"></i> 如何搭建pyspark notebook环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JW</p>
+              <p class="site-description motion-element" itemprop="description">计算机 数据挖掘 算法等</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#beancount-初探"><span class="nav-number">2.</span> <span class="nav-text">beancount 初探</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从GnuCash到beancount"><span class="nav-number">3.</span> <span class="nav-text">从GnuCash到beancount</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#beancount的使用"><span class="nav-number">4.</span> <span class="nav-text">beancount的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beancount的不足"><span class="nav-number">5.1.</span> <span class="nav-text">beancount的不足</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JW</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
